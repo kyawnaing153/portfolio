@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kyaw Naing (Ajeet) | Full-Stack Developer</title>
+    <meta name="description" content="Portfolio of Kyaw Naing (Ajeet), a Full-Stack Developer specializing in PHP, Laravel, Node.js, and Mobile App Development.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0B1120; /* Deep dark blue/black */
+        }
+
+        /* Developer Font Utility */
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B1120; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b; 
+            border: 2px solid #0B1120;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6; 
+        }
+
+        /* Tech Grid Background */
+        .tech-bg {
+            background-image: linear-gradient(rgba(30, 41, 59, 0.3) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(30, 41, 59, 0.3) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+        }
+
+        /* Typewriter Cursor */
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            background-color: #3b82f6;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Glitch Effect on Hover for Name */
+        .glitch-hover:hover {
+            animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+            color: #3b82f6;
+        }
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6', // Blue 500
+                        secondary: '#64748b', // Slate 500
+                        dark: '#0B1120', // Custom Dark
+                        card: '#151e32', // Slightly lighter dark
+                        accent: '#10b981', // Emerald for success/code
+                        keyword: '#c678dd', // Purple for keywords
+                        string: '#98c379', // Green for strings
+                        func: '#61afef', // Blue for functions
+                    },
+                    fontFamily: {
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="text-slate-300 antialiased selection:bg-primary selection:text-white relative overflow-x-hidden">
+
+    <!-- Grid Background -->
+    <div class="fixed inset-0 tech-bg z-[-1] pointer-events-none"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 start-0 border-b border-white/5 bg-dark/80 backdrop-blur-md transition-all duration-300" id="navbar">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="#" class="flex items-center space-x-2 group">
+                <span class="text-primary font-mono text-xl font-bold">&lt;KN /&gt;</span>
+                <span class="self-center text-lg font-bold whitespace-nowrap group-hover:text-primary transition-colors">Kyaw Naing</span>
+            </a>
+            <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-400 rounded-lg md:hidden hover:bg-gray-700 focus:outline-none" aria-controls="navbar-sticky" aria-expanded="false" id="menu-toggle">
+                <i data-lucide="menu"></i>
+            </button>
+            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+                <ul class="flex flex-col p-4 md:p-0 mt-4 font-mono text-sm border border-gray-700 rounded-lg bg-card md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent">
+                    <li><a href="#about" class="block py-2 px-3 text-gray-300 hover:text-primary transition-colors"><span class="text-primary">01.</span> About</a></li>
+                    <li><a href="#skills" class="block py-2 px-3 text-gray-300 hover:text-primary transition-colors"><span class="text-primary">02.</span> Skills</a></li>
+                    <li><a href="#projects" class="block py-2 px-3 text-gray-300 hover:text-primary transition-colors"><span class="text-primary">03.</span> Work</a></li>
+                    <li><a href="#contact" class="block py-2 px-3 text-primary border border-primary rounded hover:bg-primary/10 transition-colors">Say Hello</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center pt-16 relative" id="about">
+        <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12 relative z-10 reveal">
+            <p class="font-mono text-primary mb-4">Hi, my name is</p>
+            <h1 class="mb-4 text-5xl font-extrabold tracking-tight leading-none md:text-7xl lg:text-8xl text-white glitch-hover cursor-default">
+                Ajeet @ Kyaw Naing.
+            </h1>
+            <div class="font-mono text-xl md:text-2xl text-gray-400 mb-8 h-8 flex items-center justify-center gap-2">
+                <span class="text-keyword">const</span> <span class="text-func">role</span> = <span class="text-string">"<span id="typewriter"></span>"</span><span class="cursor"></span>;
+            </div>
+            <p class="mb-8 text-lg font-normal text-gray-400 lg:text-xl sm:px-16 xl:px-48 max-w-3xl mx-auto">
+                I engineer scalable <span class="text-white font-semibold">web & mobile solutions</span>. Specializing in translating complex business logic into clean, production-ready code.
+            </p>
+            <div class="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
+                <a href="#projects" class="inline-flex justify-center items-center py-3 px-5 text-base font-mono font-medium text-center text-dark rounded bg-primary hover:bg-blue-600 focus:ring-4 focus:ring-blue-900 transition-all shadow-[0_0_20px_rgba(59,130,246,0.5)]">
+                    View_Work()
+                </a>
+                <a href="#contact" class="inline-flex justify-center items-center py-3 px-5 text-base font-mono font-medium text-center text-gray-300 rounded border border-gray-600 hover:text-white hover:border-white transition-all">
+                    Contact_Me()
+                </a>
+            </div>
+            
+            <div class="flex justify-center space-x-6 text-gray-400">
+                <a href="https://github.com/kyawnaing153" target="_blank" class="hover:text-white hover:-translate-y-1 transition-all"><i data-lucide="github"></i></a>
+                <a href="#" class="hover:text-white hover:-translate-y-1 transition-all"><i data-lucide="linkedin"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section (Terminal Style) -->
+    <section id="skills" class="py-16">
+        <div class="max-w-screen-xl px-4 mx-auto reveal">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-primary text-xl">02.</span>
+                <h2 class="text-3xl font-bold text-white">Technical_Arsenal</h2>
+                <div class="h-px bg-gray-700 flex-grow max-w-xs"></div>
+            </div>
+            
+            <!-- Terminal Window Container -->
+            <div class="bg-card rounded-lg border border-gray-700 shadow-2xl overflow-hidden font-mono text-sm">
+                <!-- Window Header -->
+                <div class="bg-slate-800 px-4 py-2 flex items-center gap-2 border-b border-gray-700">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    <span class="ml-2 text-gray-400 text-xs">skills.json</span>
+                </div>
+                <!-- Window Body -->
+                <div class="p-6 md:p-8 grid md:grid-cols-2 gap-8 text-gray-300">
+                    <div>
+                        <span class="text-keyword">"backend"</span>: [
+                        <ul class="pl-8 text-string space-y-1 my-1">
+                            <li>"PHP / Laravel",</li>
+                            <li>"Node.js / Express",</li>
+                            <li>"C# .NET Framework",</li>
+                            <li>"Java / J2EE"</li>
+                        </ul>
+                        ],
+                    </div>
+                    <div>
+                         <span class="text-keyword">"frontend"</span>: [
+                        <ul class="pl-8 text-string space-y-1 my-1">
+                            <li>"React.js",</li>
+                            <li>"TypeScript",</li>
+                            <li>"Tailwind CSS",</li>
+                            <li>"HTML5 / CSS3"</li>
+                        </ul>
+                        ],
+                    </div>
+                    <div>
+                         <span class="text-keyword">"mobile"</span>: [
+                        <ul class="pl-8 text-string space-y-1 my-1">
+                            <li>"Flutter (Intermediate)",</li>
+                            <li>"React Native (Basic)",</li>
+                            <li>"Firebase Integration"</li>
+                        </ul>
+                        ],
+                    </div>
+                    <div>
+                         <span class="text-keyword">"database"</span>: [
+                        <ul class="pl-8 text-string space-y-1 my-1">
+                            <li>"MySQL / PostgreSQL",</li>
+                            <li>"MongoDB",</li>
+                            <li>"Python (AI/ML Basics)"</li>
+                        </ul>
+                        ],
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24">
+        <div class="max-w-screen-xl px-4 mx-auto">
+            <div class="flex items-center gap-4 mb-16 reveal">
+                <span class="font-mono text-primary text-xl">03.</span>
+                <h2 class="text-3xl font-bold text-white">Featured_Projects</h2>
+                <div class="h-px bg-gray-700 flex-grow max-w-xs"></div>
+            </div>
+
+            <div class="space-y-24">
+                
+                <!-- Project 1: KFS -->
+                <div class="group relative grid md:grid-cols-12 gap-4 items-center reveal">
+                    <!-- Image/Window Representation -->
+                    <div class="md:col-span-7 relative z-10">
+                        <div class="bg-card rounded border border-gray-700 overflow-hidden shadow-2xl transition-transform duration-300 group-hover:-translate-y-1 group-hover:border-primary/50 h-80 flex flex-col">
+                            <div class="bg-gray-900 px-4 py-2 flex items-center gap-2 border-b border-gray-800">
+                                <div class="w-2.5 h-2.5 rounded-full bg-red-500"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
+                                <span class="ml-2 text-gray-500 text-xs font-mono">kfs-erp-system.exe</span>
+                            </div>
+                            <div class="flex-grow flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 relative">
+                                <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-20"></div>
+                                <i data-lucide="building-2" class="w-20 h-20 text-blue-500/20"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="md:col-span-5 md:-ml-12 relative z-20 md:text-right flex flex-col md:items-end">
+                        <p class="font-mono text-primary text-sm mb-2">Featured Project</p>
+                        <h3 class="text-2xl font-bold text-white mb-4 hover:text-primary transition-colors cursor-pointer">Kyaw Family Scaffolding</h3>
+                        
+                        <div class="bg-[#112240] p-6 rounded shadow-xl mb-4 text-gray-400 text-sm leading-relaxed border border-gray-700 hover:border-gray-600 transition-colors">
+                            A comprehensive <span class="text-primary">ERP ecosystem</span> for sales, rentals, and inventory. Features automated tracking, multi-role access (Admin/Staff/Customer), and automated SMS billing.
+                        </div>
+
+                        <ul class="flex flex-wrap gap-4 text-xs font-mono text-gray-400 mb-8 md:justify-end">
+                            <li>Laravel</li>
+                            <li>MySQL</li>
+                            <li>Bootstrap</li>
+                            <li>Automation</li>
+                        </ul>
+
+                        <div class="flex items-center gap-4 text-white">
+                            <a href="#" class="hover:text-primary transition-colors"><i data-lucide="github" class="w-5 h-5"></i></a>
+                            <a href="#" class="hover:text-primary transition-colors"><i data-lucide="external-link" class="w-5 h-5"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Construction Tracking -->
+                <div class="group relative grid md:grid-cols-12 gap-4 items-center reveal">
+                    <!-- Content (Left aligned for variation) -->
+                    <div class="md:col-span-5 relative z-20 flex flex-col md:items-start order-2 md:order-1">
+                        <p class="font-mono text-primary text-sm mb-2">Featured Project</p>
+                        <h3 class="text-2xl font-bold text-white mb-4 hover:text-primary transition-colors cursor-pointer">Construction Site Tracker</h3>
+                        
+                        <div class="bg-[#112240] p-6 rounded shadow-xl mb-4 text-gray-400 text-sm leading-relaxed border border-gray-700 hover:border-gray-600 transition-colors text-left">
+                            Centralized platform for MGA Construction. distinct panels for <span class="text-primary">Accountants</span> (expenses), <span class="text-primary">Site Managers</span> (labor/reports), and Admin overview.
+                        </div>
+
+                        <ul class="flex flex-wrap gap-4 text-xs font-mono text-gray-400 mb-8 md:justify-start">
+                            <li>PHP</li>
+                            <li>SQL</li>
+                            <li>Financial Reporting</li>
+                        </ul>
+
+                        <div class="flex items-center gap-4 text-white">
+                            <a href="#" class="hover:text-primary transition-colors"><i data-lucide="github" class="w-5 h-5"></i></a>
+                            <a href="#" class="hover:text-primary transition-colors"><i data-lucide="external-link" class="w-5 h-5"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Image/Window Representation -->
+                    <div class="md:col-span-7 relative z-10 order-1 md:order-2 md:-ml-12">
+                         <div class="bg-card rounded border border-gray-700 overflow-hidden shadow-2xl transition-transform duration-300 group-hover:-translate-y-1 group-hover:border-primary/50 h-80 flex flex-col md:ml-12">
+                            <div class="bg-gray-900 px-4 py-2 flex items-center gap-2 border-b border-gray-800">
+                                <div class="w-2.5 h-2.5 rounded-full bg-red-500"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-green-500"></div>
+                                <span class="ml-2 text-gray-500 text-xs font-mono">site_tracker_v2.php</span>
+                            </div>
+                            <div class="flex-grow flex items-center justify-center bg-gradient-to-bl from-slate-800 to-slate-900 relative">
+                                <i data-lucide="hard-hat" class="w-20 h-20 text-orange-500/20"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- More Projects Grid -->
+                <div class="grid md:grid-cols-3 gap-6 reveal">
+                    <!-- Card 1 -->
+                    <div class="bg-[#112240] p-6 rounded-lg border border-gray-700 hover:border-primary/50 hover:-translate-y-2 transition-all duration-300 group flex flex-col h-full">
+                        <div class="flex justify-between items-center mb-6">
+                            <i data-lucide="folder" class="w-10 h-10 text-primary group-hover:text-white transition-colors"></i>
+                            <div class="flex gap-4 text-gray-400">
+                                <i data-lucide="github" class="w-5 h-5 hover:text-primary cursor-pointer"></i>
+                                <i data-lucide="external-link" class="w-5 h-5 hover:text-primary cursor-pointer"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">MM Product Zone</h3>
+                        <p class="text-gray-400 text-sm mb-4 flex-grow">Multi-vendor eCommerce marketplace. Engineered complex relationships for vendors, shipping, and real-time chat.</p>
+                        <div class="font-mono text-xs text-gray-500 flex flex-wrap gap-3 mt-auto">
+                            <span>React</span><span>Node.js</span><span>Socket.io</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="bg-[#112240] p-6 rounded-lg border border-gray-700 hover:border-primary/50 hover:-translate-y-2 transition-all duration-300 group flex flex-col h-full">
+                         <div class="flex justify-between items-center mb-6">
+                            <i data-lucide="smartphone" class="w-10 h-10 text-primary group-hover:text-white transition-colors"></i>
+                            <div class="flex gap-4 text-gray-400">
+                                <i data-lucide="github" class="w-5 h-5 hover:text-primary cursor-pointer"></i>
+                                <i data-lucide="external-link" class="w-5 h-5 hover:text-primary cursor-pointer"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">Taungoo Quiz App</h3>
+                        <p class="text-gray-400 text-sm mb-4 flex-grow">Mobile quiz app with real-time Firebase sync. Includes multiple quiz modes and an admin dashboard.</p>
+                        <div class="font-mono text-xs text-gray-500 flex flex-wrap gap-3 mt-auto">
+                            <span>Flutter</span><span>Firebase</span><span>Laravel</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="bg-[#112240] p-6 rounded-lg border border-gray-700 hover:border-primary/50 hover:-translate-y-2 transition-all duration-300 group flex flex-col h-full">
+                         <div class="flex justify-between items-center mb-6">
+                            <i data-lucide="bar-chart-2" class="w-10 h-10 text-primary group-hover:text-white transition-colors"></i>
+                            <div class="flex gap-4 text-gray-400">
+                                <i data-lucide="github" class="w-5 h-5 hover:text-primary cursor-pointer"></i>
+                                <i data-lucide="external-link" class="w-5 h-5 hover:text-primary cursor-pointer"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-primary transition-colors">Digital Marketplace</h3>
+                        <p class="text-gray-400 text-sm mb-4 flex-grow">Digital goods platform with AI-powered analytics for vendor performance tracking.</p>
+                        <div class="font-mono text-xs text-gray-500 flex flex-wrap gap-3 mt-auto">
+                            <span>MERN</span><span>AI Analytics</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section (Simplified Timeline) -->
+    <section id="experience" class="py-16 max-w-screen-md mx-auto px-4 reveal">
+        <div class="flex items-center gap-4 mb-12">
+            <span class="font-mono text-primary text-xl">04.</span>
+            <h2 class="text-3xl font-bold text-white">Experience_Log</h2>
+            <div class="h-px bg-gray-700 flex-grow max-w-xs"></div>
+        </div>
+
+        <div class="space-y-8">
+            <div class="border-l-2 border-gray-700 pl-8 relative">
+                <span class="absolute w-4 h-4 bg-primary rounded-full -left-[9px] top-0 shadow-[0_0_10px_#3b82f6]"></span>
+                <h3 class="text-xl text-white font-bold">Freelance Full-Stack Developer</h3>
+                <p class="font-mono text-sm text-primary mb-2">2024 - Present</p>
+                <p class="text-gray-400 text-sm">Delivering end-to-end solutions for retail and construction sectors. Specialized in building custom ERPs and mobile applications.</p>
+            </div>
+            
+            <div class="border-l-2 border-gray-700 pl-8 relative group">
+                <span class="absolute w-4 h-4 bg-gray-700 rounded-full -left-[9px] top-0 group-hover:bg-primary transition-colors"></span>
+                <h3 class="text-xl text-white font-bold">Team Lead @ Developer Society</h3>
+                <p class="font-mono text-sm text-primary mb-2">UCS (Taungoo)</p>
+                <p class="text-gray-400 text-sm">Led client projects and mentored junior developers. Fostered a culture of open-source contribution and code quality.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 text-center reveal">
+        <p class="font-mono text-primary mb-4">05. What's Next?</p>
+        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Get In Touch</h2>
+        <p class="text-gray-400 max-w-xl mx-auto mb-10 text-lg">
+            I'm currently looking for new opportunities. Whether you have a question or just want to say hi, my inbox is always open.
+        </p>
+        <a href="mailto:ajeetkumr567@gmail.com" class="inline-flex justify-center items-center py-4 px-8 text-base font-mono font-medium text-primary rounded border border-primary hover:bg-primary/10 transition-all">
+            Say_Hello()
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#0B1120] py-8 text-center font-mono text-xs text-gray-500">
+        <div class="mb-4 flex justify-center space-x-6">
+            <a href="https://github.com/kyawnaing153" class="hover:text-primary"><i data-lucide="github" class="w-5 h-5"></i></a>
+            <a href="#" class="hover:text-primary"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+        </div>
+        <p>Built by Kyaw Naing (Ajeet).</p>
+    </footer>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Navbar Logic
+        const menuToggle = document.getElementById('menu-toggle');
+        const navbarSticky = document.getElementById('navbar-sticky');
+        
+        menuToggle.addEventListener('click', () => {
+            navbarSticky.classList.toggle('hidden');
+        });
+
+        // Typewriter Effect
+        const textToType = "Full-Stack Developer";
+        const typeWriterElement = document.getElementById('typewriter');
+        let i = 0;
+
+        function typeWriter() {
+            if (i < textToType.length) {
+                typeWriterElement.innerHTML += textToType.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+        
+        // Start typing after a short delay
+        setTimeout(typeWriter, 1000);
+
+        // Scroll Reveal Animation
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
