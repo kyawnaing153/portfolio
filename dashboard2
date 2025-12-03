@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ဝန်ထမ်းအချက်အလက် စီမံခန့်ခွဲမှု (GAD Personnel Dashboard)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar styling for better look on wide tables */
+        .data-table-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        .data-table-container::-webkit-scrollbar-thumb {
+            background: #9ca3af;
+        }
+        .data-table-container::-webkit-scrollbar-track {
+            background: #f3f4f6;
+        }
+        /* Custom mobile-first utility to handle table cells */
+        @media (max-width: 768px) {
+            .table-cell-mobile-label {
+                display: block; /* Make cell content stack on mobile */
+                padding: 10px 4px;
+            }
+            .table-cell-mobile-label::before {
+                content: attr(data-label);
+                font-weight: 600;
+                color: #4b5563;
+                display: block;
+                margin-bottom: 2px;
+                font-size: 0.75rem; /* text-xs */
+                line-height: 1rem;
+            }
+            /* Adjust table display for better mobile stacking */
+            .data-table-container table, .data-table-container thead, .data-table-container tbody, .data-table-container th, .data-table-container td, .data-table-container tr { 
+                display: block; 
+            }
+            .data-table-container thead tr { 
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            .data-table-container tr { 
+                border: 1px solid #e5e7eb; 
+                margin-bottom: 1rem;
+                display: flex;
+                flex-direction: column;
+            }
+            .data-table-container td { 
+                border: none;
+                position: relative;
+                padding-left: 10px;
+                padding-right: 10px;
+                text-align: left;
+                white-space: normal; /* Allow text wrapping on mobile */
+            }
+        }
+    </style>
+</head>
+<body class="bg-white min-h-screen p-4 md:p-8 font-sans">
+    
+    <div id="app-container" class="max-w-7xl mx-auto transition-opacity duration-500">
+        <header class="mb-8 p-4 bg-gray-100 rounded-lg">
+            <h1 class="text-3xl font-bold text-gray-800 border-b-2 border-blue-500 pb-2 mb-2">
+                ဝန်ထမ်းအချက်အလက် စီမံခန့်ခွဲမှု
+            </h1>
+            <p class="text-gray-600">စုစုပေါင်း စာရင်း (Total Records): <span id="record-count" class="font-semibold text-blue-600">0</span></p>
+        </header>
+
+        <div class="bg-gray-100 p-4 mb-6 rounded-lg flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 border border-gray-300">
+            <input type="text" id="search-input" placeholder="အမည်၊ ဝန်ထမ်းအမှတ် သို့မဟုတ် ရာထူးဖြင့် ရှာဖွေပါ..."
+                    class="w-full md:w-2/3 p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150 bg-white">
+            
+            <select id="filter-designation" 
+                    class="w-full md:w-1/3 p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150 bg-white">
+                <option value="">ရာထူးဖြင့် စစ်ထုတ်ရန် (အားလုံး)</option>
+                <option value="director">ညွှန်ကြားရေးမှူး</option>
+                <option value="dd">ဒု-ညွှန်ကြားရေးမှူး</option>
+                <option value="staff_officer">ဦးစီးအရာရှိ</option>
+            </select>
+        </div>
+
+        <div class="data-table-container overflow-x-auto bg-white border border-gray-300 rounded-lg">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-200 sticky top-0 border-b border-gray-400">
+                    <tr>
+                        <th class="px-3 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider hidden md:table-cell">ဝန်ထမ်းအမှတ်</th>
+                        <th class="px-3 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">အမည်</th>
+                        <th class="px-3 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider hidden md:table-cell">ရာထူး</th>
+                        <th class="px-3 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider hidden md:table-cell">မြို့နယ်</th>
+                        <th class="px-3 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider hidden md:table-cell">စတင်ရက်</th>
+                        <th class="px-3 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider hidden md:table-cell">ဖုန်း</th>
+                        <th class="px-3 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider hidden md:table-cell">အခြေအနေ</th>
+                        <th class="px-3 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">လုပ်ဆောင်ချက်</th>
+                    </tr>
+                </thead>
+                <tbody id="personnel-data-body" class="bg-white divide-y divide-gray-200">
+                    <tr id="no-data-row" class="hidden">
+                        <td colspan="8" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">ဝန်ထမ်းအချက်အလက် မတွေ့ရှိပါ။</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+
+    <script>
+        // --- MOCK DATA FOR DEMONSTRATION ---
+        const mockPersonnelData = [
+            {
+                id: 'MOCK001',
+                eid: 'GAD-001',
+                name_my: 'ဒေါ်အေးအေးမွန်',
+                designation: 'director',
+                designation_my: 'ညွှန်ကြားရေးမှူး',
+                location: 'ရန်ကုန်',
+                start_date: '2010-05-15',
+                phone: '09771234567',
+                status: 'permanent',
+            },
+            {
+                id: 'MOCK002',
+                eid: 'GAD-015',
+                name_my: 'ဦးကျော်မင်းထက်',
+                designation: 'dd',
+                designation_my: 'ဒု-ညွှန်ကြားရေးမှူး',
+                location: 'မန္တလေး',
+                start_date: '2018-01-20',
+                phone: '09951112223',
+                status: 'probation',
+            },
+            {
+                id: 'MOCK003',
+                eid: 'GAD-042',
+                name_my: 'မအိဖြူဇင်',
+                designation: 'staff_officer',
+                designation_my: 'ဦးစီးအရာရှိ',
+                location: 'နေပြည်တော်',
+                start_date: '2022-11-01',
+                phone: '09420009876',
+                status: 'permanent',
+            },
+            {
+                id: 'MOCK004',
+                eid: 'GAD-088',
+                name_my: 'ကိုမိုးကျော်',
+                designation: 'staff_officer',
+                designation_my: 'ဦးစီးအရာရှိ',
+                location: 'တောင်ငူ',
+                start_date: '2023-03-10',
+                phone: '0955512345',
+                status: 'probation',
+            }
+        ];
+        // --- END MOCK DATA ---
+
+        let allPersonnelData = mockPersonnelData; 
+
+        const dataBody = document.getElementById('personnel-data-body');
+        const recordCountDisplay = document.getElementById('record-count');
+        const searchInput = document.getElementById('search-input');
+        const filterDesignation = document.getElementById('filter-designation');
+
+        // Function to translate status for display
+        function getStatusDisplay(status) {
+            switch(status) {
+                case 'permanent':
+                    return { text: 'အမြဲတမ်း', color: 'bg-green-100 text-green-800' };
+                case 'probation':
+                    return { text: 'စမ်းသပ်', color: 'bg-yellow-100 text-yellow-800' };
+                case 'contract':
+                    return { text: 'စာချုပ်', color: 'bg-blue-100 text-blue-800' };
+                default:
+                    return { text: 'N/A', color: 'bg-gray-100 text-gray-800' };
+            }
+        }
+        
+        // Function to translate designation for display
+        function getDesignationDisplay(person) {
+            return person.designation_my || 'N/A';
+        }
+
+
+        function renderPersonnelTable(data) {
+            dataBody.innerHTML = '';
+            
+            // --- FIX FOR Uncaught TypeError ---
+            // Access the element directly after checking it exists (or ensure it's in the DOM when called)
+            const noDataRow = document.getElementById('no-data-row'); 
+
+            if (data.length === 0) {
+                if (noDataRow) {
+                    noDataRow.classList.remove('hidden');
+                }
+                recordCountDisplay.textContent = 0;
+                return;
+            }
+            
+            if (noDataRow) {
+                noDataRow.classList.add('hidden');
+            }
+            // --- END FIX ---
+            
+            recordCountDisplay.textContent = data.length;
+
+            data.forEach((person) => {
+                const tr = document.createElement('tr');
+                tr.classList.add('hover:bg-gray-50', 'transition', 'duration-150');
+
+                const getOrDefault = (field) => person[field] || 'N/A';
+                const statusInfo = getStatusDisplay(getOrDefault('status'));
+
+                tr.innerHTML = `
+                    <td class="px-3 py-3 text-sm font-medium text-gray-900 table-cell-mobile-label hidden md:table-cell" data-label="ဝန်ထမ်းအမှတ်:">${getOrDefault('eid')}</td>
+                    <td class="px-3 py-3 text-sm text-gray-700 table-cell-mobile-label" data-label="အမည်:">${getOrDefault('name_my')}</td>
+                    <td class="px-3 py-3 text-sm text-gray-700 table-cell-mobile-label hidden md:table-cell" data-label="ရာထူး:">${getDesignationDisplay(person)}</td>
+                    <td class="px-3 py-3 text-sm text-gray-700 table-cell-mobile-label hidden md:table-cell" data-label="မြို့နယ်:">${getOrDefault('location')}</td>
+                    <td class="px-3 py-3 text-sm text-gray-500 table-cell-mobile-label hidden md:table-cell" data-label="စတင်ရက်:">${getOrDefault('start_date')}</td>
+                    <td class="px-3 py-3 text-sm text-gray-500 table-cell-mobile-label hidden md:table-cell" data-label="ဖုန်း:">${getOrDefault('phone')}</td>
+                    <td class="px-3 py-3">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${statusInfo.color} table-cell-mobile-label" data-label="အခြေအနေ:">
+                            ${statusInfo.text}
+                        </span>
+                    </td>
+                    <td class="px-3 py-3 text-sm font-medium">
+                        <button onclick="viewDetails('${person.id}')" class="text-indigo-600 hover:text-indigo-900 mx-1">ကြည့်ရန်</button>
+                        <button onclick="editRecord('${person.id}')" class="text-blue-600 hover:text-blue-900 mx-1">ပြင်ရန်</button>
+                    </td>
+                `;
+                dataBody.appendChild(tr);
+            });
+        }
+        
+        function applyFilterAndSearch() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const filterValue = filterDesignation.value;
+
+            const filteredData = allPersonnelData.filter(person => {
+                // 1. Search Filter
+                const searchMatch = !searchTerm || 
+                                        person.name_my?.includes(searchTerm) ||
+                                        person.eid?.toLowerCase().includes(searchTerm) ||
+                                        getDesignationDisplay(person).includes(searchTerm);
+
+                // 2. Designation Filter
+                const designationMatch = !filterValue || person.designation === filterValue;
+
+                return searchMatch && designationMatch;
+            });
+
+            renderPersonnelTable(filteredData);
+        }
+
+        // --- Dummy Action Functions (For UI demonstration) ---
+
+        window.viewDetails = function(recordId) {
+            const person = allPersonnelData.find(p => p.id === recordId);
+            if (person) {
+                alert(`အသေးစိတ်အချက်အလက်များ:\nအမည်: ${person.name_my} (${person.eid})\nရာထူး: ${getDesignationDisplay(person)}\nမြို့နယ်: ${person.location}\nဖုန်း: ${person.phone}\n\n[ဤနေရာတွင် အသေးစိတ်ပုံစံကို ပြသမည်ဖြစ်သည်။]`);
+            }
+        }
+        
+        window.editRecord = function(recordId) {
+            alert("ပြင်ဆင်ခြင်းလုပ်ဆောင်ချက် စတင်ပါပြီ။ ဝန်ထမ်းအမှတ်: " + recordId + "။ ဤနေရာတွင် အချက်အလက်များ ဖြည့်သွင်းရန် ပုံစံတစ်ခု ပေါ်လာမည်ဖြစ်သည်။");
+        }
+
+        // --- Event Listeners ---
+        searchInput.addEventListener('input', applyFilterAndSearch);
+        filterDesignation.addEventListener('change', applyFilterAndSearch);
+
+
+        // Start the application after the window loads
+        // The original error is fixed by relying on window.onload
+        window.onload = function() {
+            // Render the initial mock data
+            renderPersonnelTable(allPersonnelData);
+            document.getElementById('app-container').style.opacity = '1';
+        };
+
+    </script>
+</body>
+</html>

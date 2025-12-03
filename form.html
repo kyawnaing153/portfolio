@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personnel Entry - GAD HRIS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'gad-blue': '#004d99', /* Deep GAD Blue */
+                        'gad-dark': '#003366',
+                        'gad-light': '#e3f2ff', /* Light Blue Accent */
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 flex">
+    
+    <button id="sidebar-toggle-form" class="md:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-gad-blue text-white shadow-lg">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+    </button>
+
+    <div id="sidebar-form" class="w-64 bg-gad-blue text-white h-screen fixed md:relative transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-40 flex-shrink-0">
+        <div class="p-6 border-b border-gad-dark">
+            <h2 class="text-xl font-bold">GAD HRIS</h2>
+            <p class="text-sm text-blue-300">ဝန်ထမ်းစီမံခန့်ခွဲမှု</p>
+        </div>
+        <nav class="mt-6 space-y-2">
+            <a href="dashboard.html" class="flex items-center p-4 text-white hover:bg-gad-dark transition duration-150">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+                Dashboard
+            </a>
+            <a href="index.html" class="flex items-center p-4 text-white bg-blue-700/50 hover:bg-gad-dark transition duration-150 border-l-4 border-gad-light">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.999 3.999 0 0115 11h-3.333a5.972 5.972 0 00-.75 2.906V18h4zM4 18h4v-3a5.972 5.972 0 01.75-2.906A3.999 3.999 0 015 11H4v7z"/></svg>
+                ဝန်ထမ်းသစ်သွင်းရန် (New Entry)
+            </a>
+            <a href="#" class="flex items-center p-4 text-white hover:bg-gad-dark transition duration-150">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+                ဝန်ထမ်းစာရင်း (Personnel List)
+            </a>
+        </nav>
+    </div>
+
+    <div class="flex flex-col flex-1">
+        
+        <header class="bg-white shadow-md p-4 flex justify-between items-center sticky top-0 z-30 md:ml-0 ml-[4.5rem]">
+            <h1 class="text-xl font-semibold text-gray-800">GAD HR Information System</h1>
+            
+            <div class="flex items-center space-x-4">
+                <button class="text-gray-500 hover:text-gad-blue relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-2.81A3 3 0 0017.5 10H7.5A3 3 0 005.405 14.19L4 17h5m-1 0h6m-3 0v3"/></svg>
+                    <span class="absolute top-0 right-0 block h-2 w-2 rounded-full ring-2 ring-white bg-red-500"></span>
+                </button>
+                
+                <div class="flex items-center space-x-2 cursor-pointer">
+                    <span class="text-sm font-medium text-gray-700 hidden sm:block">U Zaw Min (Admin)</span>
+                    <div class="h-8 w-8 rounded-full bg-gad-blue flex items-center justify-center text-white text-sm font-bold">ZM</div>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-1 p-4 md:p-8">
+            <div class="max-w-4xl mx-auto bg-white p-6 sm:p-8 rounded-xl shadow-2xl mt-8 md:mt-0">
+                <header class="text-center mb-8">
+                    <h1 class="text-3xl font-bold text-gad-blue mb-1">
+                        အရာရှိနှင့်ဝန်ထမ်း ပုဂ္ဂိုလ်ရေးဆိုင်ရာ အချက်အလက်စာရင်း
+                    </h1>
+                    <p class="text-gray-600 text-sm">(GAD Officer and Staff Personnel Data Entry Form)</p>
+                </header>
+
+                <form action="/submit-hr-data" method="POST" class="space-y-8">
+                    
+                    <fieldset class="border border-blue-200 p-4 rounded-lg bg-blue-50/50">
+                        <legend class="text-lg font-semibold text-gad-blue px-2">
+                            ကဏ္ဍ (၁) အခြေခံ ကိုယ်ရေးအချက်အလက်
+                        </legend>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div class="flex flex-col"><label for="eid" class="text-sm font-medium text-gray-700">ဝန်ထမ်းအမှတ် (EID)</label><input type="text" id="eid" name="eid" required placeholder="GAD-XXXXXX" class="mt-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"></div>
+                            <div class="flex flex-col"><label for="nrc" class="text-sm font-medium text-gray-700">နိုင်/ထောက်ခံအမှတ် (NRC No.)</label><input type="text" id="nrc" name="nrc" required placeholder="12/AhSaNa(N)000000" class="mt-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"></div>
+                            <div class="flex flex-col"><label for="dob" class="text-sm font-medium text-gray-700">မွေးသက္ကရာဇ် (Date of Birth)</label><input type="date" id="dob" name="dob" required class="mt-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"></div>
+                            <div class="flex flex-col md:col-span-2"><label for="full_name" class="text-sm font-medium text-gray-700">အမည် (Full Name)</label><input type="text" id="full_name" name="full_name" required class="mt-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"></div>
+                            <div class="flex flex-col"><label for="father_name" class="text-sm font-medium text-gray-700">အဖအမည် (Father's Name)</label><input type="text" id="father_name" name="father_name" required class="mt-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"></div>
+                            <div class="flex flex-col"><label for="gender" class="text-sm font-medium text-gray-700">ကျား/မ (Gender)</label><select id="gender" name="gender" required class="mt-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"><option value="" disabled selected>— ရွေးပါ —</option><option value="Male">ကျား (Male)</option><option value="Female">မ (Female)</option></select></div>
+                            <div class="flex flex-col"><label for="marital_status" class="text-sm font-medium text-gray-700">အိမ်ထောင်ရေးအခြေအနေ (Marital Status)</label><select id="marital_status" name="marital_status" class="mt-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"><option value="" disabled selected>— ရွေးပါ —</option><option value="Single">တစ်ကိုယ်ရေ</option><option value="Married">အိမ်ထောင်ရှိ</option></select></div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="border border-blue-200 p-4 rounded-lg bg-blue-50/50">
+                        <legend class="text-lg font-semibold text-gad-blue px-2">ကဏ္ဍ (၂) ဆက်သွယ်ရန် အချက်အလက်</legend>
+                        <div class="flex flex-col mb-4">
+                            <label for="current_address" class="text-sm font-medium text-gray-700">လက်ရှိနေရပ်လိပ်စာ (Current Address)</label>
+                            <textarea id="current_address" name="current_address" rows="3" required placeholder="ရပ်ကွက်/ကျေးရွာ, မြို့နယ်, ခရိုင်, တိုင်း/ပြည်နယ်" class="mt-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"></textarea>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="flex flex-col"><label for="phone" class="text-sm font-medium text-gray-700">ဖုန်းနံပါတ် (Phone Number)</label><input type="tel" id="phone" name="phone" required placeholder="09-XXXXXXXX" class="mt-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"></div>
+                            <div class="flex flex-col"><label for="email" class="text-sm font-medium text-gray-700">အီးမေးလ် (Email Address)</label><input type="email" id="email" name="email" placeholder="example@gad.gov.mm" class="mt-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"></div>
+                            <div class="flex flex-col"><label for="emg_contact_name" class="text-sm font-medium text-gray-700">အရေးပေါ်ဆက်သွယ်ရန်ပုဂ္ဂိုလ် (Name)</label><input type="text" id="emg_contact_name" name="emg_contact_name" required class="mt-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"></div>
+                            <div class="flex flex-col"><label for="emg_contact_phone" class="text-sm font-medium text-gray-700">အရေးပေါ်ဖုန်းနံပါတ် (Phone)</label><input type="tel" id="emg_contact_phone" name="emg_contact_phone" required class="mt-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"></div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="border border-blue-200 p-4 rounded-lg bg-blue-50/50">
+                        <legend class="text-lg font-semibold text-gad-blue px-2">ကဏ္ဍ (၃) တာဝန်နှင့်ရာထူး အချက်အလက်</legend>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="flex flex-col"><label for="psb_no" class="text-sm font-medium text-gray-700">ဝန်ထမ်းစည်းမျဉ်းစာအုပ်အမှတ် (PSB No.)</label><input type="text" id="psb_no" name="psb_no" required class="mt-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"></div>
+                            <div class="flex flex-col"><label for="start_date" class="text-sm font-medium text-gray-700">စတင်ခန့်အပ်သည့်ရက်စွဲ (Start Date)</label><input type="date" id="start_date" name="start_date" required class="mt-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"></div>
+                            <div class="flex flex-col"><label for="designation" class="text-sm font-medium text-gray-700">လက်ရှိရာထူး (Current Designation)</label><select id="designation" name="designation" required class="mt-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"><option value="" disabled selected>— ရွေးပါ —</option><option value="Director">ညွှန်ကြားရေးမှူး</option><option value="Staff_Officer">ဦးစီးအရာရှိ</option></select></div>
+                            <div class="flex flex-col"><label for="current_location" class="text-sm font-medium text-gray-700">လက်ရှိတာဝန်ထမ်းဆောင်သည့် မြို့နယ်/ရုံး (Location)</label><select id="current_location" name="current_location" required class="mt-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"><option value="" disabled selected>— ရွေးပါ —</option><option value="Yangon">ရန်ကုန်</option><option value="Mandalay">မန္တလေး</option></select></div>
+                            <div class="flex flex-col"><label for="status" class="text-sm font-medium text-gray-700">ဝန်ထမ်းအခြေအနေ (Status)</label><select id="status" name="status" required class="mt-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"><option value="" disabled selected>— ရွေးပါ —</option><option value="Permanent">အမြဲတမ်း</option><option value="Probationary">စမ်းသပ်ကာလ</option></select></div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="border border-blue-200 p-4 rounded-lg bg-blue-50/50">
+                        <legend class="text-lg font-semibold text-gad-blue px-2">ကဏ္ဍ (၅) လစာနှင့်ဘဏ္ဍာရေး အချက်အလက်</legend>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="flex flex-col"><label for="basic_salary" class="text-sm font-medium text-gray-700">အခြေခံလစာ (Basic Monthly Salary)</label><input type="number" id="basic_salary" name="basic_salary" required min="0" placeholder="MMK" class="mt-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"></div>
+                            <div class="flex flex-col"><label for="bank_account" class="text-sm font-medium text-gray-700">ဘဏ်စာရင်းအမှတ် (Bank Account No.)</label><input type="text" id="bank_account" name="bank_account" required class="mt-1 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"></div>
+                        </div>
+                    </fieldset>
+
+                    <button type="submit" 
+                            class="w-full py-3 mt-6 bg-gad-blue text-white font-semibold rounded-lg shadow-md 
+                                   hover:bg-gad-dark transition duration-150 ease-in-out focus:outline-none focus:ring-4 focus:ring-gad-blue focus:ring-opacity-50">
+                        အချက်အလက်သွင်းရန် (Submit Data)
+                    </button>
+                </form>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        const sidebarForm = document.getElementById('sidebar-form');
+        const toggleBtnForm = document.getElementById('sidebar-toggle-form');
+        
+        // Initial check for desktop view to ensure main content uses margin
+        if (window.innerWidth >= 768) {
+            sidebarForm.classList.remove('-translate-x-full');
+        }
+
+        toggleBtnForm.addEventListener('click', () => {
+            sidebarForm.classList.toggle('-translate-x-full');
+        });
+    </script>
+</body>
+</html>
